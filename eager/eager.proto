@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_outer_classname = "EagerProto";
+
+service Eager {
+  rpc Send(General) returns (Empty) {}
+  rpc End(Last) returns (Empty) {}
+}
+
+message General {
+  int32 sender   = 1;
+  int32 receiver = 2;
+}
+
+message Last {
+  int32 leader  = 1;
+}
+
+message Empty {
+
+}
