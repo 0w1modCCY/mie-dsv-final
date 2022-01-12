@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'B\nEagerProtoP\001',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0b\x65\x61ger.proto\"+\n\x07General\x12\x0e\n\x06sender\x18\x01 \x01(\x05\x12\x10\n\x08receiver\x18\x02 \x01(\x05\"\x16\n\x04Last\x12\x0e\n\x06leader\x18\x01 \x01(\x05\"\x07\n\x05\x45mpty2;\n\x05\x45\x61ger\x12\x1a\n\x04Send\x12\x08.General\x1a\x06.Empty\"\x00\x12\x16\n\x03\x45nd\x12\x05.Last\x1a\x06.Empty\"\x00\x42\x0e\x42\nEagerProtoP\x01\x62\x06proto3'
+  serialized_pb=b'\n\x0b\x65\x61ger.proto\":\n\x07General\x12\x0e\n\x06sender\x18\x01 \x01(\x05\x12\x10\n\x08receiver\x18\x02 \x01(\x05\x12\r\n\x05nodes\x18\x03 \x01(\t\"\x16\n\x04Last\x12\x0e\n\x06leader\x18\x01 \x01(\x05\"\x07\n\x05\x45mpty2;\n\x05\x45\x61ger\x12\x1a\n\x04Send\x12\x08.General\x1a\x06.Empty\"\x00\x12\x16\n\x03\x45nd\x12\x05.Last\x1a\x06.Empty\"\x00\x42\x0e\x42\nEagerProtoP\x01\x62\x06proto3'
 )
 
 
@@ -47,6 +47,13 @@ _GENERAL = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='nodes', full_name='General.nodes', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -60,7 +67,7 @@ _GENERAL = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=15,
-  serialized_end=58,
+  serialized_end=73,
 )
 
 
@@ -91,8 +98,8 @@ _LAST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=60,
-  serialized_end=82,
+  serialized_start=75,
+  serialized_end=97,
 )
 
 
@@ -116,8 +123,8 @@ _EMPTY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=84,
-  serialized_end=91,
+  serialized_start=99,
+  serialized_end=106,
 )
 
 DESCRIPTOR.message_types_by_name['General'] = _GENERAL
@@ -156,8 +163,8 @@ _EAGER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=93,
-  serialized_end=152,
+  serialized_start=108,
+  serialized_end=167,
   methods=[
   _descriptor.MethodDescriptor(
     name='Send',

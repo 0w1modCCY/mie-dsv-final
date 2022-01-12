@@ -3,14 +3,11 @@ from concurrent import futures
 
 import grpc
 
-import eager.eager_pb2_grpc
-from eager import eager_pb2_grpc, eager_pb2
+import eager_pb2
+import eager_pb2_grpc
 from data_logger import Logger as log
 
-global PORT
-PORT = 50280
-
-def to_string(self, array):
+def to_string(array):
     string = "" + array[0]
     array.pop(0)
     for node in array:
@@ -28,7 +25,7 @@ class Last:
         self.leader = leader
 
 
-class EagerServicer(eager.eager_pb2_grpc.EagerServicer):
+class EagerServicer(eager_pb2_grpc.EagerServicer):
     def __init__(self, node):
         super(EagerServicer, self).__init__()
         self.node = node
@@ -49,7 +46,7 @@ class Node:
         self.next = None
         self.value = value  # int
         self.nodes = nodes  # list of ints
-        self.servicer = EagerServicer()
+        self.servicer = EagerServicer(self)
 
         if len(nodes) < 2:
             self.send_finish(Last(leader=self.value))
@@ -57,19 +54,19 @@ class Node:
         self.receiver = nodes[nodes.index(self.value) + 1]
 
     def send_message(self, sender, receiver, nodes):
-        with grpc.insecure_channel('localhost:' + str(PORT)) as channel:
+        with grpc.insecure_channel('localhost:' + str(50280)) as channel:
             stub = eager_pb2_grpc.EagerStub(channel)
             stub.Send(eager_pb2.General(sender=sender, receiver=receiver, nodes=nodes))
 
     def send_finish(self, leader):
-        with grpc.insecure_channel('localhost:' + str(PORT)) as channel:
+        with grpc.insecure_channel('localhost:' + str(50280)) as channel:
             stub = eager_pb2_grpc.EagerStub(channel)
             stub.End(eager_pb2.Last(leader=leader))
 
     def serve(self):
         server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
         eager_pb2_grpc.add_EagerServicer_to_server(self.servicer, server)
-        server.add_insecure_port('[::]:' + str(PORT))
+        server.add_insecure_port('[::]:' + str(50280))
         server.start()
 
         if self.value < self.receiver:
@@ -84,7 +81,7 @@ class Node:
             self.receiver = self.nodes[index + 1]
             self.next = self.nodes[index + 1]
 
-        self.send_message(self.receiver, self.next, self.to_string(self.nodes))
+        self.send_message(self.receiver, self.next, to_string(self.nodes))
 
         server.stop(None)
         exit()

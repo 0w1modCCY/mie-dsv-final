@@ -1,0 +1,4 @@
+== Topology 1 ==
+Topology size: 4
+Execution time: 0.05s
+
