@@ -49,7 +49,7 @@ class Node:
         self.servicer = EagerServicer(self)
 
         if len(nodes) < 2:
-            self.send_finish(Last(leader=self.value))
+            self.send_finish(self.value)
 
         self.receiver = nodes[nodes.index(self.value) + 1]
 

@@ -5,11 +5,13 @@ import time
 from data_logger import Logger as log
 import features
 
+
 def to_string(array):
     string = "" + array[0]
     array.pop(0)
     for node in array:
         string = ", " + node
+
 
 class Node:
     def __init__(self, value, nodes):
