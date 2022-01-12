@@ -11,6 +11,7 @@ service Eager {
 message General {
   int32 sender   = 1;
   int32 receiver = 2;
+  string nodes   = 3;
 }
 
 message Last {
